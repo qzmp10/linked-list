@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<HEAD>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</HEAD>
+<body>
+    
+</body>
+<script>
+
+class LinkedList {
+
+    constructor(HEAD) {
+        this.HEAD = null;
+    }
+
+    append(value) {
+        const node = new Node(value);
+
+        if(this.HEAD === null) {
+            this.HEAD = node;
+        } else {
+            let currentNode = this.HEAD;
+            while(currentNode.nextNode != null) {
+                currentNode = currentNode.nextNode;
+            } currentNode.nextNode = node;
+        }
+    }
+
+    prepend(value) {
+        const previousHEAD = this.HEAD;
+        const node = new Node(value); 
+        node.nextNode = previousHEAD;
+        this.HEAD = node;
+    }
+
+    size() {
+        let counter = 0;
+
+        for(const node in this.HEAD) {
+            counter ++;
+        } return counter;
+    }
+
+    head() {
+            return this.HEAD.value;
+    }
+
+    tail() {
+        let currentNode = this.HEAD;
+
+        while(currentNode.nextNode != null) {
+            currentNode = currentNode.nextNode;
+        } return currentNode.value;
+    }
+
+    at(index) {
+        let currentNode = this.HEAD
+
+        for(let i = 0; i < index ; i++) {
+            if(i === 0) continue; //could also have done i = 1 i think
+            currentNode = currentNode.nextNode;
+        } return currentNode.value;
+    }
+
+    pop() {
+        let currentNode = this.HEAD;
+        if(currentNode.nextNode === null) this.HEAD = null;
+
+        while(currentNode.nextNode.nextNode != null) {
+            currentNode = currentNode.nextNode;
+        } currentNode.nextNode = null;
+    }
+
+    contains(VALUE) {
+        let currentNode = this.HEAD;
+
+        if(currentNode.value == VALUE) return true;
+
+        while(currentNode.nextNode != null) {
+            if(currentNode.value == VALUE){
+                return true;
+            } else {
+                currentNode = currentNode.nextNode;
+            }
+        } 
+
+        if(currentNode.value != VALUE) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    find(VALUE) {
+        let currentNode = this.HEAD;
+        let counter = 1
+
+        if(currentNode.value == VALUE) return counter;
+
+        while(currentNode.nextNode != null) {
+            if(currentNode.value == VALUE) {
+                return counter;
+            } else {
+                currentNode = currentNode.nextNode;
+                counter++;
+            }
+        }
+
+        if(currentNode.value != VALUE) {
+            return null;
+        } else {
+            return counter;
+        }
+    }
+
+    toString() {
+        let printNodes = '';
+        let currentNode = this.HEAD;
+        printNodes += `${currentNode.value} -> `;
+        if(currentNode.nextNode == null) {
+            printNodes += 'null'
+            return printNodes;
+        }
+
+        while(currentNode.nextNode != null) {
+            currentNode = currentNode.nextNode;
+            printNodes += `${currentNode.value} -> `
+        }
+
+        printNodes += 'null';
+        return printNodes;
+
+
+    }
+
+    insertAt(value, index) {
+        let currentNode = this.HEAD;
+        let previousNode = null;
+
+        if(currentNode.nextNode == null && index > 2) {
+            return;
+        }
+
+        for(let i = 1; i < index; i++) {
+            previousNode = currentNode;
+            currentNode = currentNode.nextNode;
+        }
+
+        const node = new Node(value);
+
+        previousNode.nextNode = node;
+        node.nextNode = currentNode;
+        
+    }
+
+    removeAt(index) {
+        let currentNode = this.HEAD;
+        let previousNode = null;
+        let counter = 1;
+
+        if(currentNode.nextNode == null) {
+            this.HEAD = null;
+            return;
+        }
+
+        while(counter < index) {
+            previousNode = currentNode;
+            counter++;
+            currentNode = currentNode.nextNode;
+        }
+
+        previousNode.nextNode = currentNode.nextNode;
+        currentNode =  null;
+
+
+    }
+
+}
+
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.nextNode = null;
+    }
+}
+
+</script>
+</html>
